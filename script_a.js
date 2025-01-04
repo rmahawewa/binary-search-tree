@@ -199,5 +199,58 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
             } 
         }
     }
-    
 
+    /**
+     * in order traversal
+     */
+
+    function inOrderTraversal(root){
+        if(root === null){
+            return;
+        }
+
+        //traverce the left sub tree
+        inOrderTraversal(root.left);
+
+        console.log(root.data + " ");
+
+        //traverse the right subtree
+        inOrderTraversal(root.right);
+
+    }
+
+
+    /**
+     * pre order traversal
+     */
+
+    //in pre-order traversal, the node is visited first, followed by its left child and then its right child. This can be visualized as Root-Left-Right.
+
+    function preOrderTraversal(root){
+        if(root === null) return;
+
+        //visit the root node
+        console.log(root.data + " ");
+
+        //Traverse the left subtree
+        preOrderTraversal(root.left);
+
+        //Traverse the right subtree
+        preOrderTraversal(root.right);
+
+    }
+
+    function postOrderTraversal(root){
+        if(root === null){
+            return;
+        }
+    
+        //Traverse the left subtree
+        postOrderTraversal(root.left);
+         
+        //Traverse the right subtree
+        postOrderTraversal(root.right);
+    
+        //Visit the root node
+        console.log(root.data + " ");
+    }
