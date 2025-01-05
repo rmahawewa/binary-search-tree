@@ -28,6 +28,18 @@ class Node{
     return root;
   }
 
+  findValue(root, value){
+    // let value = "";
+    while(root !== null && root.data !== value){
+        if(root.data == value){
+            return root;
+        }
+        findValue(root.leftc, value);
+        findValue(root.rightc, value);
+    }
+    return null;
+}
+
 }
 
 class Tree{
@@ -128,7 +140,7 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     }else if(root.data < x){
         root.rightc = delNode(root.rightc, x);
     }else{
-        if(root.leftc === null) return root.rightc;
+        if(root.leftc === null) {return root.leftc;};
         if(root.rightc === null){return root.rightc};
 
         //when both children are present
@@ -158,23 +170,14 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     root_new.right.right = new Node(18);
     let x = 15;
 
-    root_new = delNode(root_new, x);
+    root_new = delNode(root_new, 15);
     console.log(root_new);
     inorder(root_new);
     console.log(root_new);
+    // prettyPrint(root_new); 
 
 
-    function findValue(root, value){
-        let value = "";
-        while(root !== null && root.data !== value){
-            if(root.data == value){
-                return root;
-            }
-            findValue(root.leftc, value);
-            findValue(root.rightc, value);
-        }
-        return null;
-    }
+    
 
 
     function levelOrderTraversal(root){
@@ -204,18 +207,19 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
      * in order traversal
      */
 
-    function inOrderTraversal(root){
+    function inOrderTraversal(root, array){
         if(root === null){
-            return;
+            return array;
         }
 
         //traverce the left sub tree
-        inOrderTraversal(root.left);
+        inOrderTraversal(root.left, array);
 
         console.log(root.data + " ");
+        array.push(root.data);
 
         //traverse the right subtree
-        inOrderTraversal(root.right);
+        inOrderTraversal(root.right, array);
 
     }
 
@@ -226,31 +230,35 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
 
     //in pre-order traversal, the node is visited first, followed by its left child and then its right child. This can be visualized as Root-Left-Right.
 
-    function preOrderTraversal(root){
-        if(root === null) return;
+    function preOrderTraversal(root, array){
+        if(root === null) return array;
 
         //visit the root node
         console.log(root.data + " ");
+        array.push(root.data);
 
         //Traverse the left subtree
-        preOrderTraversal(root.left);
+        preOrderTraversal(root.left, array);
 
         //Traverse the right subtree
-        preOrderTraversal(root.right);
+        preOrderTraversal(root.right, array);
 
     }
 
-    function postOrderTraversal(root){
+    function postOrderTraversal(root, array){
         if(root === null){
-            return;
+            return array;
         }
     
         //Traverse the left subtree
-        postOrderTraversal(root.left);
+        postOrderTraversal(root.left, array);
          
         //Traverse the right subtree
-        postOrderTraversal(root.right);
+        postOrderTraversal(root.right, array);
     
         //Visit the root node
         console.log(root.data + " ");
+        array.push(root.data);
     }
+
+
