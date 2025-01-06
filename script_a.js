@@ -177,9 +177,6 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     // prettyPrint(root_new); 
 
 
-    
-
-
     function levelOrderTraversal(root){
         if(root === null) return;
     
@@ -262,3 +259,4 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     }
 
 
+    function find_height(root){}
