@@ -287,17 +287,19 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     function depth(root, target, array){
         if(root === null){
             return array.length;
-        }
-        if(root == target){
+        }else if(root == target){
             return array.length;
+        }else{
+            //traverce the left sub tree
+            inOrderTraversal(root.left, target, array);
+
+            array.push(root.data);
+
+            //traverse the right subtree
+            inOrderTraversal(root.right, target, array);
         }
-
-        //traverce the left sub tree
-        inOrderTraversal(root.left, target, array);
-
-        array.push(root.data);
-
-        //traverse the right subtree
-        inOrderTraversal(root.right, array);
+        return array.length;       
 
     }
+
+    
