@@ -258,5 +258,46 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
         array.push(root.data);
     }
 
+    function find_height(root,count = 0){
+        
+        if(root === null) return;
+    
+        let queue = [root];
+    
+        while(queue.length > 0){
+            let current = queue.shift();
+    
+            //visit the root node
+            console.log(current.data + " ");
+    
+            //Enqueue left child
+            if(current.left !== null){
+                queue.push(current.left, count++);
 
-    function find_height(root){}
+            }
+    
+            //Enqueue right child
+            if(current.right !== null){
+                queue.push(current.right, count++);
+            } 
+        }
+        return count;
+    }
+
+    function depth(root, target, array){
+        if(root === null){
+            return array.length;
+        }
+        if(root == target){
+            return array.length;
+        }
+
+        //traverce the left sub tree
+        inOrderTraversal(root.left, target, array);
+
+        array.push(root.data);
+
+        //traverse the right subtree
+        inOrderTraversal(root.right, array);
+
+    }
