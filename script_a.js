@@ -1,8 +1,8 @@
 class Node{
     constructor(data){
         this.data = data;
-        this.leftc = null;
-        this.rightc = null;
+        this.left = null;
+        this.right = null;
 
     }
 
@@ -309,7 +309,7 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
 
     }
 
-    function balancedTree(root){
+    function isBalanced(root){
         let count_left = 0;
         function left_side(root){
             if(root === null) {
@@ -335,7 +335,7 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
         }
         let count_difference = left_side(root).count_left - right_side(root).count_right;
         let balanced_tree = count_difference <= 1 ? true : false;
-
+        return balanced_tree;
     }
 
 
@@ -350,7 +350,7 @@ function build_a_tree(){
     let lenth_of_array1 = array.length;  //4
     array = array.concat(array1);
     lenth_of_array = array.length;  //15
-    let number_of_levels = Log2(N+1); //log2(15+1) = log2(16) = 4  => since 4 is a round number I guess the binary tree will be a balanced tree
+    let number_of_levels = 16; //Log2(N+1); //log2(15+1) = log2(16) = 4  => since 4 is a round number I guess the binary tree will be a balanced tree
 
     let node = buildTree(array, 10, 55);
 
