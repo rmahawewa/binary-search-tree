@@ -133,7 +133,6 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     if(root === null){
         return root;
     }
-
     //if key to be searched is in a subtree
     if(root.data > x){
         root.leftc = delNode(root.leftc, x);
@@ -198,6 +197,7 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
                 queue.push(current.right);
             } 
         }
+        return root;
     }
 
     /**
@@ -207,17 +207,18 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     function inOrderTraversal(root, array){
         if(root === null){
             return array;
+        }else{
+            //traverce the left sub tree
+            inOrderTraversal(root.left, array);
+
+            console.log(root.data + " ");
+            array.push(root.data);
+
+            //traverse the right subtree
+            inOrderTraversal(root.right, array);
         }
 
-        //traverce the left sub tree
-        inOrderTraversal(root.left, array);
-
-        console.log(root.data + " ");
-        array.push(root.data);
-
-        //traverse the right subtree
-        inOrderTraversal(root.right, array);
-
+        return array;
     }
 
 
@@ -228,34 +229,39 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     //in pre-order traversal, the node is visited first, followed by its left child and then its right child. This can be visualized as Root-Left-Right.
 
     function preOrderTraversal(root, array){
-        if(root === null) return array;
+        if(root === null) {
+            return array;
+        }else{
+            //visit the root node
+            console.log(root.data + " ");
+            array.push(root.data);
 
-        //visit the root node
-        console.log(root.data + " ");
-        array.push(root.data);
+            //Traverse the left subtree
+            preOrderTraversal(root.left, array);
 
-        //Traverse the left subtree
-        preOrderTraversal(root.left, array);
-
-        //Traverse the right subtree
-        preOrderTraversal(root.right, array);
-
+            //Traverse the right subtree
+            preOrderTraversal(root.right, array);
+        }     
+        return array;
     }
+
 
     function postOrderTraversal(root, array){
         if(root === null){
             return array;
+        }else{
+            //Traverse the left subtree
+            postOrderTraversal(root.left, array);
+                    
+            //Traverse the right subtree
+            postOrderTraversal(root.right, array);
+
+            //Visit the root node
+            console.log(root.data + " ");
+            array.push(root.data);
         }
     
-        //Traverse the left subtree
-        postOrderTraversal(root.left, array);
-         
-        //Traverse the right subtree
-        postOrderTraversal(root.right, array);
-    
-        //Visit the root node
-        console.log(root.data + " ");
-        array.push(root.data);
+        return array;
     }
 
     function find_height(root,count = 0){
@@ -266,19 +272,20 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     
         while(queue.length > 0){
             let current = queue.shift();
+            count++;
     
             //visit the root node
             console.log(current.data + " ");
     
             //Enqueue left child
             if(current.left !== null){
-                queue.push(current.left, count++);
+                queue.push(current.left);
 
             }
     
             //Enqueue right child
             if(current.right !== null){
-                queue.push(current.right, count++);
+                queue.push(current.right);
             } 
         }
         return count;
@@ -291,15 +298,64 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
             return array.length;
         }else{
             //traverce the left sub tree
-            inOrderTraversal(root.left, target, array);
+            depth(root.left, target, array);
 
             array.push(root.data);
 
             //traverse the right subtree
-            inOrderTraversal(root.right, target, array);
+            depth(root.right, target, array);
         }
-        return array.length;       
+        return array.length;     
 
     }
 
+    function balancedTree(root){
+        let count_left = 0;
+        function left_side(root){
+            if(root === null) {
+                return 0;
+            }else{
+                count_left++;
+                left_side(root.leftc.leftc);
+                left_side(root.leftc.rightc);
+            }
+            return count_left;
+        }
+
+        function right_side(root){
+            let count_right = 0;
+            if(root === null) {
+                return 0;
+            }else{
+                count_right++;
+                right_side(root.rightc.leftc);
+                right_side(root.rightc.rightc);
+            }
+            return count_right;
+        }
+        let count_difference = left_side(root).count_left - right_side(root).count_right;
+        let balanced_tree = count_difference <= 1 ? true : false;
+
+    }
+
+
+function build_a_tree(){
+    // In a Binary Tree with N nodes, the minimum possible height or the minimum number of levels is Log2(N+1):
+    // The maximum number of nodes at level ‘l’ of a binary tree is 2(pov)l
+
+
+    let array = [10,15,12,11,14,30,25,35,20,40,33];
+    let lenth_of_array = array.length;  //11
+    let array1 = [50,60,34,55];
+    let lenth_of_array1 = array.length;  //4
+    array = array.concat(array1);
+    lenth_of_array = array.length;  //15
+    let number_of_levels = Log2(N+1); //log2(15+1) = log2(16) = 4  => since 4 is a round number I guess the binary tree will be a balanced tree
+
+    let node = buildTree(array, 10, 55);
+
+    let check = postOrderTraversal(node, array1);
+
+
+}
     
