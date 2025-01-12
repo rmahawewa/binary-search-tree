@@ -13,17 +13,17 @@ function buildTree(array, start, end){
     let mid = start + Math.floor((end - start)/2);
 
     let root = new Node(array[mid]);
-    root.leftc = buildTree(array, start, (mid-1));
-    root.rightc = buildTree(array, (mid+1), end);
+    root.left = buildTree(array, start, (mid-1));
+    root.right = buildTree(array, (mid+1), end);
 
     return root;
 }
 
 function inorder(root){
     if(root !== null){
-        inorder(root.leftc);
+        inorder(root.left);
         console.log(root.data + " ");
-        inorder(root.rightc);
+        inorder(root.right);
     }
 }
 

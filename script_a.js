@@ -20,9 +20,9 @@ class Node{
     }
 
     if(key < root.data){
-        root.leftc = this.insert(root.leftc, key);
+        root.left = this.insert(root.left, key);
     }else if(key > root.key){
-        root.rightc = this.insert(root.rightc, key);
+        root.right = this.insert(root.right, key);
     }
 
     return root;
@@ -34,8 +34,8 @@ class Node{
         if(root.data == value){
             return root;
         }
-        findValue(root.leftc, value);
-        findValue(root.rightc, value);
+        findValue(root.left, value);
+        findValue(root.right, value);
     }
     return null;
 }
@@ -58,8 +58,8 @@ function buildTree(array, start, end){
     let mid = start + Math.floor((end - start)/2);
 
     let root = new Node(array[mid]);
-    root.leftc = buildTree(array, start, (mid-1));
-    root.rightc = buildTree(array, (mid+1), end);
+    root.left = buildTree(array, start, (mid-1));
+    root.right = buildTree(array, (mid+1), end);
 
     return root;
 }
@@ -74,12 +74,12 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     if (node === null) {
       return;
     }
-    if (node.rightc !== null) {
-      prettyPrint(node.rightc, `${prefix}${isLeft ? "│   " : "    "}`, false);
+    if (node.right !== null) {
+      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    if (node.leftc !== null) {
-      prettyPrint(node.leftc, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    if (node.left !== null) {
+      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
   };
  
@@ -90,9 +90,9 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
    */
   function inorder(root){
       if(root !== null){
-          inorder(root.leftc);
+          inorder(root.left);
           console.log(root.data + " ");
-          inorder(root.rightc);
+          inorder(root.right);
       }
   }
 
@@ -117,9 +117,9 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
    * It mainly works when the right child is not empty, which is  the case we need in BST delete.
    */
   function getSuccessor(curr){
-    curr = curr.rightc;
-    while(curr !== null && curr.leftc !== null){
-        curr = curr.leftc;
+    curr = curr.right;
+    while(curr !== null && curr.left !== null){
+        curr = curr.left;
     }
     return curr;
   }
@@ -135,17 +135,17 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     }
     //if key to be searched is in a subtree
     if(root.data > x){
-        root.leftc = delNode(root.leftc, x);
+        root.left = delNode(root.left, x);
     }else if(root.data < x){
-        root.rightc = delNode(root.rightc, x);
+        root.right = delNode(root.right, x);
     }else{
-        if(root.leftc === null) {return root.leftc;};
-        if(root.rightc === null){return root.rightc};
+        if(root.left === null) {return root.left;};
+        if(root.right === null){return root.right};
 
         //when both children are present
         let succ = getSuccessor(root);
         root.data = succ.key;
-        root.rightc = delNode(root.rightc, succ.key);
+        root.right = delNode(root.right, succ.key);
     }
     return root;
 
@@ -154,9 +154,9 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
    // Utility function to do inorder traversal
     function inorder(root) {
         if (root !== null) {
-            inorder(root.leftc);
+            inorder(root.left);
             console.log(root.data + " ");
-            inorder(root.rightc);
+            inorder(root.right);
         }
     }
 
@@ -316,8 +316,8 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
                 return 0;
             }else{
                 count_left++;
-                left_side(root.leftc.leftc);
-                left_side(root.leftc.rightc);
+                left_side(root.left.left);
+                left_side(root.left.right);
             }
             return count_left;
         }
@@ -328,8 +328,8 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
                 return 0;
             }else{
                 count_right++;
-                right_side(root.rightc.leftc);
-                right_side(root.rightc.rightc);
+                right_side(root.right.left);
+                right_side(root.right.right);
             }
             return count_right;
         }
