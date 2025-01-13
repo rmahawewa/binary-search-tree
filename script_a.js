@@ -21,7 +21,7 @@ class Node{
 
     if(key < root.data){
         root.left = this.insert(root.left, key);
-    }else if(key > root.key){
+    }else if(key > root.data){
         root.right = this.insert(root.right, key);
     }
 
@@ -169,11 +169,13 @@ const prettyPrint = (node="", prefix = "", isLeft = true) => {
     root_new.right.right = new Node(18);
     let x = 15;
 
-    root_new = delNode(root_new, 15);
+    // root_new = delNode(root_new, 15);
     console.log(root_new);
     inorder(root_new);
     console.log(root_new);
-    // prettyPrint(root_new); 
+    prettyPrint(root_new); 
+    root_new = delNode(root_new, 15);
+    console.log(root_new);
 
 
     function levelOrderTraversal(root){
